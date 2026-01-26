@@ -1,71 +1,104 @@
-import Link from "next/link";
-
-export default function Assignments() {
+export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments">
-      <div className="wd-assignments-controls">
-        <input
-          id="wd-search-assignment"
-          placeholder="Search for Assignments"
-        />
-        <br />
-        <button id="wd-add-assignment-group">+ Group</button>
-        <button id="wd-add-assignment">+ Assignment</button>
-      </div>
-
-      <div className="wd-assignments-title">
-        <h3 id="wd-assignments-title">
-          ASSIGNMENTS 40% of Total
-        </h3>
-        <button>+</button>
-      </div>
-
-      <ul id="wd-assignment-list">
-        <li className="wd-assignment-list-item">
-          <Link
-            className="wd-assignment-link"
-            href="/courses/1234/assignments/123"
-          >
-            A1 - ENV + HTML
-          </Link>
-          <div>
-            Multiple Modules | Not available until May 6 at 12:00am
-          </div>
-          <div>
-            Due May 13 at 11:59pm | 100 pts
-          </div>
-        </li>
-
-        <li className="wd-assignment-list-item">
-          <Link
-            className="wd-assignment-link"
-            href="/courses/1234/assignments/124"
-          >
-            A2 - CSS + BOOTSTRAP
-          </Link>
-          <div>
-            Multiple Modules | Not available until May 13 at 12:00am
-          </div>
-          <div>
-            Due May 20 at 11:59pm | 100 pts
-          </div>
-        </li>
-
-        <li className="wd-assignment-list-item">
-          <Link
-            className="wd-assignment-link"
-            href="/courses/1234/assignments/125"
-          >
-            A3 - JAVASCRIPT + REACT
-          </Link>
-          <div>
-            Multiple Modules | Not available until May 20 at 12:00am
-          </div>
-          <div>
-            Due May 27 at 11:59pm | 100 pts
-          </div>
-        </li>
-      </ul>
+    <div id="wd-assignments-editor">
+      <label htmlFor="wd-name">Assignment Name</label>
+      <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
+      
+      <textarea id="wd-description" cols={50} rows={5}>
+        ...
+      </textarea>
+      <br />
+      
+      <table>
+        <tbody>
+          <tr>
+            <td align="right" valign="top">
+              <label htmlFor="wd-points">Points</label>
+            </td>
+            <td>
+              <input id="wd-points" defaultValue={100} />
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <label htmlFor="wd-group">Assignment Group</label>
+            </td>
+            <td>
+              <select id="wd-group">
+                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                <option value="QUIZZES">QUIZZES</option>
+                <option value="EXAMS">EXAMS</option>
+                <option value="PROJECT">PROJECT</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <label htmlFor="wd-display-grade-as">Display Grade as</label>
+            </td>
+            <td>
+              <select id="wd-display-grade-as">
+                <option value="PERCENTAGE">Percentage</option>
+                <option value="POINTS">Points</option>
+                <option value="COMPLETE_INCOMPLETE">Complete/Incomplete</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <label htmlFor="wd-submission-type">Submission Type</label>
+            </td>
+            <td>
+              <select id="wd-submission-type">
+                <option value="ONLINE">Online</option>
+                <option value="PAPER">On Paper</option>
+                <option value="EXTERNAL">External Tool</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <label>Online Entry Options</label><br/>
+              <input type="checkbox" id="wd-text-entry" />
+              <label htmlFor="wd-text-entry">Text Entry</label><br/>
+              <input type="checkbox" id="wd-website-url" defaultChecked />
+              <label htmlFor="wd-website-url">Website URL</label><br/>
+              <input type="checkbox" id="wd-media-recordings" />
+              <label htmlFor="wd-media-recordings">Media Recordings</label><br/>
+              <input type="checkbox" id="wd-student-annotation" />
+              <label htmlFor="wd-student-annotation">Student Annotation</label><br/>
+              <input type="checkbox" id="wd-file-upload" />
+              <label htmlFor="wd-file-upload">File Uploads</label>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <label htmlFor="wd-assign-to">Assign</label>
+            </td>
+            <td>
+              <label htmlFor="wd-assign-to">Assign to</label><br/>
+              <input id="wd-assign-to" defaultValue="Everyone" />
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <label htmlFor="wd-due-date">Due</label><br/>
+              <input type="date" id="wd-due-date" defaultValue="2026-01-01" /><br/><br/>
+              
+              <label htmlFor="wd-available-from">Available from</label><br/>
+              <input type="date" id="wd-available-from" defaultValue="2026-01-01" /><br/><br/>
+              
+              <label htmlFor="wd-available-until">Until</label><br/>
+              <input type="date" id="wd-available-until" defaultValue="2026-01-02" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <button>Cancel</button>
+      <button>Save</button>
     </div>
   );
 }
