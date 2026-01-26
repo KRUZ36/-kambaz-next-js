@@ -65,7 +65,7 @@ export default function Dashboard() {
 
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/horror.jpg" width={200} alt="Horror Movie Studies" />
+            <img src="/images/it.jpg" width={200} alt="Horror Movie Studies" />
             <div>
               <h5>CS1101 Horror Movie Studies</h5>
             </div>
