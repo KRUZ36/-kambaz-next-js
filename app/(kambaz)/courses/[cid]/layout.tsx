@@ -1,6 +1,6 @@
+import { ReactNode } from "react";
 import { FaAlignJustify } from "react-icons/fa";
 import CourseNavigation from "./navigation";
-import { ReactNode } from "react";
 
 export default async function CourseLayout({
   children,
@@ -9,7 +9,7 @@ export default async function CourseLayout({
   children: ReactNode;
   params: Promise<{ cid: string }>;
 }) {
-  const { cid } = await params;   // ✅ THIS is the key change
+  const { cid } = await params;
 
   return (
     <div id="wd-courses">
