@@ -1,4 +1,6 @@
+import { Card, CardBody, CardImg, CardTitle, CardText, Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
+import { FaBook } from "react-icons/fa";
 
 export default function Dashboard() {
   return (
@@ -8,69 +10,149 @@ export default function Dashboard() {
       <h2 id="wd-dashboard-published">Published Courses (7)</h2>
       <hr />
       <div id="wd-dashboard-courses">
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/reactjs.jpg" width={200} alt="React JS" />
-            <div>
-              <h5>CS1234 React JS</h5>
-              <p className="wd-dashboard-course-title">Full Stack software developer</p>
-            </div>
-          </Link>
-        </div>
+        <Row xs={1} md={5} className="g-4">
+          
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/reactjs.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1234 React JS
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Full Stack software developer
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/underwater.jpg" width={200} alt="Underwater Ceramic" />
-            <div>
-              <h5>CS1101 Underwater Ceramic</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/underwater.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Underwater Ceramic
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Exploring pottery techniques beneath the sea
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/skydiving.jpg" width={200} alt="Skydiving in the Arts" />
-            <div>
-              <h5>CS1101 Skydiving in the Arts</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/skydiving.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Skydiving in the Arts
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Creative expression while falling from the sky
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/astrology.jpg" width={200} alt="Business Astrology" />
-            <div>
-              <h5>CS1101 Business Astrology</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/astrology.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Business Astrology
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Using the stars to guide business decisions
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/potato.jpg" width={200} alt="Programming on a Potato" />
-            <div>
-              <h5>CS1101 Programming on a Potato</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/potato.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Programming on a Potato
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Low-resource computing fundamentals
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/speaking.jpg" width={200} alt="Private Speaking" />
-            <div>
-              <h5>CS1101 Private Speaking</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/speaking.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Private Speaking
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Speaking to yourself effectively
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course">
-          <Link className="wd-dashboard-course-link" href="/courses/1234/home">
-            <img src="/images/it.jpg" width={200} alt="Horror Movie Studies" />
-            <div>
-              <h5>CS1101 Horror Movie Studies</h5>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card>
+              <Link 
+                href="/courses/1234/home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <CardImg variant="top" src="/images/it.jpg" width="100%" height={160} />
+                <CardBody>
+                  <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                    CS1101 Horror Movie Studies
+                  </CardTitle>
+                  <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
+                    Academic analysis of scary films
+                  </CardText>
+                  <Button variant="primary"><FaBook /></Button>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
+
+        </Row>
       </div>
     </div>
   );
