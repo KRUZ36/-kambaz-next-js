@@ -1,18 +1,50 @@
 "use client";
+import { useState } from "react";
 import { FormControl, FormLabel, FormSelect, Button } from "react-bootstrap";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import * as db from "../../../../database";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "../reducer";
+import { RootState } from "../../../../store";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignment = db.assignments.find((a: any) => a._id === aid);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+
+  const existingAssignment = assignments.find((a: any) => a._id === aid);
+
+  const [assignment, setAssignment] = useState<any>(
+    existingAssignment || {
+      title: "New Assignment",
+      description: "New Assignment Description",
+      points: 100,
+      dueDate: "",
+      availableFromDate: "",
+      availableUntilDate: "",
+      course: cid,
+    }
+  );
+
+  const handleSave = () => {
+    if (existingAssignment) {
+      dispatch(updateAssignment(assignment));
+    } else {
+      dispatch(addAssignment({ ...assignment, course: cid }));
+    }
+    router.push(`/courses/${cid}/assignments`);
+  };
 
   return (
     <div id="wd-assignments-editor" className="p-3">
       <div className="mb-3">
         <FormLabel htmlFor="wd-name">Assignment Name</FormLabel>
-        <FormControl id="wd-name" defaultValue={assignment?.title ?? ""} />
+        <FormControl
+          id="wd-name"
+          value={assignment.title}
+          onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
+        />
       </div>
 
       <div className="mb-3">
@@ -21,7 +53,8 @@ export default function AssignmentEditor() {
           as="textarea"
           id="wd-description"
           rows={5}
-          defaultValue={assignment?.description ?? ""}
+          value={assignment.description}
+          onChange={(e) => setAssignment({ ...assignment, description: e.target.value })}
         />
       </div>
 
@@ -30,7 +63,11 @@ export default function AssignmentEditor() {
           <FormLabel htmlFor="wd-points">Points</FormLabel>
         </div>
         <div className="col-md-9">
-          <FormControl id="wd-points" defaultValue={assignment?.points ?? 100} />
+          <FormControl
+            id="wd-points"
+            value={assignment.points}
+            onChange={(e) => setAssignment({ ...assignment, points: parseInt(e.target.value) })}
+          />
         </div>
       </div>
 
@@ -109,19 +146,34 @@ export default function AssignmentEditor() {
             </div>
             <div className="mb-3">
               <FormLabel htmlFor="wd-due-date" className="fw-bold">Due</FormLabel>
-              <FormControl id="wd-due-date" type="date" defaultValue={assignment?.dueDate ?? ""} />
+              <FormControl
+                id="wd-due-date"
+                type="date"
+                value={assignment.dueDate}
+                onChange={(e) => setAssignment({ ...assignment, dueDate: e.target.value })}
+              />
             </div>
             <div className="row">
               <div className="col-md-6">
                 <div className="mb-3">
                   <FormLabel htmlFor="wd-available-from" className="fw-bold">Available from</FormLabel>
-                  <FormControl id="wd-available-from" type="date" defaultValue={assignment?.availableFromDate ?? ""} />
+                  <FormControl
+                    id="wd-available-from"
+                    type="date"
+                    value={assignment.availableFromDate}
+                    onChange={(e) => setAssignment({ ...assignment, availableFromDate: e.target.value })}
+                  />
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="mb-3">
                   <FormLabel htmlFor="wd-available-until" className="fw-bold">Until</FormLabel>
-                  <FormControl id="wd-available-until" type="date" defaultValue={assignment?.availableUntilDate ?? ""} />
+                  <FormControl
+                    id="wd-available-until"
+                    type="date"
+                    value={assignment.availableUntilDate}
+                    onChange={(e) => setAssignment({ ...assignment, availableUntilDate: e.target.value })}
+                  />
                 </div>
               </div>
             </div>
@@ -134,9 +186,7 @@ export default function AssignmentEditor() {
         <Link href={`/courses/${cid}/assignments`}>
           <Button variant="secondary" className="me-2">Cancel</Button>
         </Link>
-        <Link href={`/courses/${cid}/assignments`}>
-          <Button variant="danger">Save</Button>
-        </Link>
+        <Button variant="danger" onClick={handleSave}>Save</Button>
       </div>
     </div>
   );

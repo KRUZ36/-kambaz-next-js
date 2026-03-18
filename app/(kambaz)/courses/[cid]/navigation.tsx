@@ -4,7 +4,7 @@ import { usePathname, useParams } from "next/navigation";
 
 export default function CourseNavigation() {
   const pathname = usePathname();
-  const { cid } = useParams(); // ✅ get real course id
+  const { cid } = useParams();
 
   const links = [
     { href: `/courses/${cid}/home`, label: "Home", id: "wd-course-home-link" },
@@ -13,7 +13,7 @@ export default function CourseNavigation() {
     { href: `/courses/${cid}/zoom`, label: "Zoom", id: "wd-course-zoom-link" },
     { href: `/courses/${cid}/assignments`, label: "Assignments", id: "wd-course-assignments-link" },
     { href: `/courses/${cid}/quizzes`, label: "Quizzes", id: "wd-course-quizzes-link" },
-    { href: `/courses/${cid}/people`, label: "People", id: "wd-course-people-link" },
+    { href: `/courses/${cid}/people/Table`, label: "People", id: "wd-course-people-link" },
   ];
 
   return (
@@ -28,8 +28,8 @@ export default function CourseNavigation() {
           href={link.href}
           id={link.id}
           className={`list-group-item border-0 ${
-            pathname.includes(link.href)
-              ? "active text-black bg-white"
+            pathname === link.href
+              ? "active"
               : "text-danger"
           }`}
         >

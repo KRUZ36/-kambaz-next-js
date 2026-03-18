@@ -22,16 +22,16 @@ export default function KambazNavigation() {
   ];
 
   return (
-    <ListGroup 
-      className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2" 
+    <ListGroup
+      className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
       style={{ width: 120 }}
       id="wd-kambaz-navigation"
     >
-      <ListGroupItem 
-        className="bg-black border-0 text-center" 
+      <ListGroupItem
+        className="bg-black border-0 text-center"
         as="a"
-        target="_blank" 
-        href="https://www.northeastern.edu/" 
+        target="_blank"
+        href="https://www.northeastern.edu/"
         id="wd-neu-link"
       >
         <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
@@ -39,20 +39,23 @@ export default function KambazNavigation() {
       <br />
 
       {links.map((link) => {
-        const isActive = link.href === "/account" 
-          ? pathname.includes("/account")
-          : link.href === "/dashboard"
-          ? pathname === "/dashboard"
-          : pathname.includes(link.href) && link.href !== "/account";
+        const isActive =
+          link.id === "wd-dashboard-link"
+            ? pathname === "/dashboard"
+            : link.id === "wd-courses-link"
+            ? pathname.startsWith("/courses")
+            : link.id === "wd-account-link"
+            ? pathname.startsWith("/account")
+            : pathname.startsWith(link.href);
 
         return (
-          <ListGroupItem 
+          <ListGroupItem
             key={link.id}
             className={`border-0 text-center ${isActive ? "bg-white" : "bg-black"}`}
           >
-            <Link 
-              href={link.href} 
-              id={link.id} 
+            <Link
+              href={link.href}
+              id={link.id}
               className={`text-decoration-none ${isActive ? "text-danger" : "text-white"}`}
             >
               <div className={isActive ? "text-danger" : "text-white"}>

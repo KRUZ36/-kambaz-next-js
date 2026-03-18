@@ -1,12 +1,26 @@
+"use client";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
+import { Modal, FormControl } from "react-bootstrap";
 
-export default function ModulesControls() {
+export default function ModulesControls({
+  moduleName,
+  setModuleName,
+  addModule,
+}: {
+  moduleName: string;
+  setModuleName: (title: string) => void;
+  addModule: () => void;
+}) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div id="wd-modules-controls" className="text-nowrap">
-
-      <Button variant="danger" size="lg" className="me-1 float-end">
+      <Button variant="danger" size="lg" className="me-1 float-end" onClick={handleShow}>
         <FaPlus className="me-2" /> Module
       </Button>
 
@@ -32,6 +46,24 @@ export default function ModulesControls() {
         Collapse All
       </Button>
 
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Module</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FormControl
+            value={moduleName}
+            onChange={(e) => setModuleName(e.target.value)}
+            placeholder="Module Name"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+          <Button variant="primary" onClick={() => { addModule(); handleClose(); }}>
+            Add Module
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

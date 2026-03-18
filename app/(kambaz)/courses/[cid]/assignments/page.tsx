@@ -1,15 +1,23 @@
 "use client";
+import { useState } from "react";
 import { ListGroup, ListGroupItem, Button, FormControl } from "react-bootstrap";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTrash } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import * as db from "../../../database";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer";
+import { RootState } from "../../../store";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments.filter((a: any) => a.course === cid);
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const dispatch = useDispatch();
+  const [showConfirm, setShowConfirm] = useState<string | null>(null);
+
+  const filteredAssignments = assignments.filter((a: any) => a.course === cid);
 
   return (
     <div id="wd-assignments">
@@ -27,9 +35,13 @@ export default function Assignments() {
           <Button variant="secondary" className="me-2" id="wd-add-assignment-group">
             <BsPlus className="fs-4" /> Group
           </Button>
-          <Button variant="danger" id="wd-add-assignment">
-            <BsPlus className="fs-4" /> Assignment
-          </Button>
+          {currentUser?.role === "FACULTY" && (
+            <Link href={`/courses/${cid}/assignments/new`}>
+              <Button variant="danger" id="wd-add-assignment">
+                <BsPlus className="fs-4" /> Assignment
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
 
@@ -43,23 +55,60 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="rounded-0">
-            {assignments.map((assignment: any) => (
-              <ListGroupItem key={assignment._id} className="wd-assignment-list-item p-3 ps-1 border-start border-success border-3">
+            {filteredAssignments.map((assignment: any) => (
+              <ListGroupItem
+                key={assignment._id}
+                className="wd-assignment-list-item p-3 ps-1 border-start border-success border-3"
+              >
                 <BsGripVertical className="me-2 fs-3" />
-                <div className="d-inline-block" style={{ width: "80%" }}>
-                  <Link
-                    className="wd-assignment-link fw-bold text-decoration-none text-dark"
-                    href={`/courses/${cid}/assignments/${assignment._id}`}
-                  >
-                    {assignment.title}
-                  </Link>
+                <div className="d-inline-block" style={{ width: "70%" }}>
+                  {currentUser?.role === "FACULTY" ? (
+                    <Link
+                      className="wd-assignment-link fw-bold text-decoration-none text-dark"
+                      href={`/courses/${cid}/assignments/${assignment._id}`}
+                    >
+                      {assignment.title}
+                    </Link>
+                  ) : (
+                    <span className="fw-bold">{assignment.title}</span>
+                  )}
                   <div className="text-muted small">
                     <span className="text-danger">Multiple Modules</span> |{" "}
                     <strong>Not available until</strong> {assignment.availableFromDate} |{" "}
                     <strong>Due</strong> {assignment.dueDate} | {assignment.points} pts
                   </div>
                 </div>
-                <IoEllipsisVertical className="float-end fs-4" />
+                {currentUser?.role === "FACULTY" && (
+                  <div className="float-end d-flex align-items-center">
+                    {showConfirm === assignment._id ? (
+                      <div className="d-flex align-items-center gap-2">
+                        <span className="small">Delete?</span>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => {
+                            dispatch(deleteAssignment(assignment._id));
+                            setShowConfirm(null);
+                          }}>
+                          Yes
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setShowConfirm(null)}>
+                          No
+                        </Button>
+                      </div>
+                    ) : (
+                      <FaTrash
+                        className="text-danger me-3"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setShowConfirm(assignment._id)}
+                      />
+                    )}
+                    <IoEllipsisVertical className="fs-4" />
+                  </div>
+                )}
               </ListGroupItem>
             ))}
           </ListGroup>
