@@ -22,7 +22,7 @@ function QueryCalculatorContent() {
 
 export default function QueryCalculator() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>fallback error for vercel. not included in original assignment page but vercel wanted it for safety!</div>}>
       <QueryCalculatorContent />
     </Suspense>
   );

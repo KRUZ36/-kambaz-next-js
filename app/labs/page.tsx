@@ -24,6 +24,11 @@ export default function labs() {
           Lab 4: Maintaining State in React Applications{" "}
           </Link>
         </li>
+        <li>
+          <Link href="/labs/lab5" id="wd-lab4-link">
+          Lab 5: Implementing RESTful API{" "}
+          </Link>
+        </li>
       </ul>
     </div>
   );
