@@ -1,0 +1,29 @@
+[
+  { "_id": "A101", "title": "A1", "course": "CS1234", "description": "Assignment 1 for React JS.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A102", "title": "A2", "course": "CS1234", "description": "Assignment 2 for React JS.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A103", "title": "A3", "course": "CS1234", "description": "Assignment 3 for React JS.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A201", "title": "A1", "course": "CS1101", "description": "Assignment 1 for Underwater Ceramic.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A202", "title": "A2", "course": "CS1101", "description": "Assignment 2 for Underwater Ceramic.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A203", "title": "A3", "course": "CS1101", "description": "Assignment 3 for Underwater Ceramic.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A301", "title": "A1", "course": "CS1102", "description": "Assignment 1 for Skydiving in the Arts.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A302", "title": "A2", "course": "CS1102", "description": "Assignment 2 for Skydiving in the Arts.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A303", "title": "A3", "course": "CS1102", "description": "Assignment 3 for Skydiving in the Arts.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A401", "title": "A1", "course": "CS1103", "description": "Assignment 1 for Business Astrology.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A402", "title": "A2", "course": "CS1103", "description": "Assignment 2 for Business Astrology.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A403", "title": "A3", "course": "CS1103", "description": "Assignment 3 for Business Astrology.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A501", "title": "A1", "course": "CS1104", "description": "Assignment 1 for Programming on a Potato.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A502", "title": "A2", "course": "CS1104", "description": "Assignment 2 for Programming on a Potato.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A503", "title": "A3", "course": "CS1104", "description": "Assignment 3 for Programming on a Potato.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A601", "title": "A1", "course": "CS1105", "description": "Assignment 1 for Private Speaking.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A602", "title": "A2", "course": "CS1105", "description": "Assignment 2 for Private Speaking.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A603", "title": "A3", "course": "CS1105", "description": "Assignment 3 for Private Speaking.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" },
+
+  { "_id": "A701", "title": "A1", "course": "CS1106", "description": "Assignment 1 for Horror Movie Studies.", "points": 100, "dueDate": "2025-02-15", "availableFromDate": "2025-01-10", "availableUntilDate": "2025-02-15" },
+  { "_id": "A702", "title": "A2", "course": "CS1106", "description": "Assignment 2 for Horror Movie Studies.", "points": 100, "dueDate": "2025-03-15", "availableFromDate": "2025-02-16", "availableUntilDate": "2025-03-15" },
+  { "_id": "A703", "title": "A3", "course": "CS1106", "description": "Assignment 3 for Horror Movie Studies.", "points": 100, "dueDate": "2025-04-15", "availableFromDate": "2025-03-16", "availableUntilDate": "2025-04-15" }
+]

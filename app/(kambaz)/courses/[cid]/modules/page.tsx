@@ -1,98 +1,85 @@
+"use client";
+import { BsGripVertical } from "react-icons/bs";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import ModulesControls from "./ModulesControls";
+import LessonControlButtons from "./LessonControlButtons";
+import ModuleControlButtons from "./ModuleControlButtons";
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import * as client from "../../client";
+
 export default function Modules() {
+  const { cid } = useParams();
+  const [modules, setModules] = useState<any[]>([]);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await client.findModulesForCourse(cid as string);
+      setModules(data);
+    };
+    fetch();
+  }, []);
+
+  const addModule = async () => {
+    const m = await client.createModuleForCourse(cid as string,
+      { name: "New Module", course: cid });
+    setModules([...modules, m]);
+  };
+
+  const removeModule = async (moduleId: string) => {
+    await client.deleteModule(moduleId);
+    setModules(modules.filter((m) => m._id !== moduleId));
+  };
+
+  const saveModule = async (module: any) => {
+    await client.updateModule({ ...module, editing: false });
+    setModules(modules.map((m) =>
+      m._id === module._id ? { ...module, editing: false } : m));
+  };
+
   return (
-    <div id="wd-modules">
-      <div className="wd-modules-controls">
-        <button id="wd-collapse-all">Collapse All</button>
-        <button id="wd-view-progress">View Progress</button>
-        <button id="wd-publish-all">Publish All</button>
-        <button id="wd-add-module">+ Module</button>
-      </div>
-
-      <ul id="wd-modules-list">
-        <li className="wd-module">
-          <div className="wd-title">Week 1</div>
-          <ul className="wd-lessons">
-            <li className="wd-lesson">
-              <div className="wd-title">LEARNING OBJECTIVES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to the course</li>
-                <li className="wd-content-item">
-                  Learn what is Web Development
-                </li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">READING</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Full Stack Developer - Chapter 1 - Introduction</li>
-                <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating User Interfaces With HTML</li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">SLIDES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to Web Development</li>
-                <li className="wd-content-item">Creating an HTTP server with Node.js</li>
-                <li className="wd-content-item">Creating a React Application</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-
-        <li className="wd-module">
-          <div className="wd-title">Week 2</div>
-          <ul className="wd-lessons">
-            <li className="wd-lesson">
-              <div className="wd-title">LEARNING OBJECTIVES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Learn how to create user interfaces with HTML</li>
-                <li className="wd-content-item">Deploy the assignment to Netlify</li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">READING</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating User Interfaces With HTML</li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">SLIDES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to HTML and the DOM</li>
-                <li className="wd-content-item">Formatting Web content with Headings and Paragraphs</li>
-                <li className="wd-content-item">Formatting content with Lists and Tables</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-
-        <li className="wd-module">
-          <div className="wd-title">Week 3</div>
-          <ul className="wd-lessons">
-            <li className="wd-lesson">
-              <div className="wd-title">LEARNING OBJECTIVES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Learn how to style with CSS</li>
-                <li className="wd-content-item">Learn about Bootstrap framework</li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">READING</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Full Stack Developer - Chapter 3 - Cascading Style Sheets</li>
-              </ul>
-            </li>
-            <li className="wd-lesson">
-              <div className="wd-title">SLIDES</div>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to CSS</li>
-                <li className="wd-content-item">Styling with Bootstrap</li>
-                <li className="wd-content-item">Responsive Design</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+    <div>
+      {isFaculty && <ModulesControls addModule={addModule} />}
+      <br /><br /><br /><br />
+      <ListGroup className="rounded-0" id="wd-modules">
+        {modules.map((module: any) => (
+          <ListGroupItem key={module._id} className="wd-module p-0 mb-5 fs-5 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" />
+              {!module.editing ? module.name : (
+                <input className="form-control w-50 d-inline-block"
+                  defaultValue={module.name}
+                  onChange={(e) => setModules(modules.map((m) =>
+                    m._id === module._id ? { ...m, name: e.target.value } : m))}
+                  onKeyDown={(e) => { if (e.key === "Enter") saveModule(module); }} />
+              )}
+              {isFaculty && (
+                <ModuleControlButtons
+                  moduleId={module._id}
+                  deleteModule={removeModule}
+                  editModule={() => setModules(modules.map((m) =>
+                    m._id === module._id ? { ...m, editing: true } : m))}
+                />
+              )}
+            </div>
+            {module.lessons && (
+              <ListGroup className="wd-lessons rounded-0">
+                {module.lessons.map((lesson: any) => (
+                  <ListGroupItem key={lesson._id} className="wd-lesson p-3 ps-1">
+                    <BsGripVertical className="me-2 fs-3" />
+                    {lesson.name}
+                    <LessonControlButtons />
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+            )}
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </div>
   );
 }
