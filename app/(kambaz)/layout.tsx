@@ -4,22 +4,25 @@ import KambazNavigation from "./navigation";
 import "./styles.css";
 import store from "./store";
 import { Provider } from "react-redux";
+import Session from "./account/Session";
 
 export default function KambazLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
     <Provider store={store}>
-      <div id="wd-kambaz">
-        <div className="d-flex">
-          <div style={{ minHeight: "100vh", backgroundColor: "#000" }}>
-            <KambazNavigation />
-          </div>
-          <div className="wd-main-content-offset p-3 flex-fill">
-            {children}
+      <Session>
+        <div id="wd-kambaz">
+          <div className="d-flex">
+            <div style={{ minHeight: "100vh", backgroundColor: "#000" }}>
+              <KambazNavigation />
+            </div>
+            <div className="wd-main-content-offset p-3 flex-fill">
+              {children}
+            </div>
           </div>
         </div>
-      </div>
+      </Session>
     </Provider>
   );
 }
