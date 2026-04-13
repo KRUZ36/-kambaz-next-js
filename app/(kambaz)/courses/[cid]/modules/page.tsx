@@ -31,12 +31,12 @@ export default function Modules() {
   };
 
   const removeModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
+    await client.deleteModule(cid as string, moduleId);
     setModules(modules.filter((m) => m._id !== moduleId));
   };
 
   const saveModule = async (module: any) => {
-    await client.updateModule({ ...module, editing: false });
+    await client.updateModule(cid as string, { ...module, editing: false });
     setModules(modules.map((m) =>
       m._id === module._id ? { ...module, editing: false } : m));
   };
@@ -66,7 +66,12 @@ export default function Modules() {
                 />
               )}
             </div>
-            {module.lessons && (
+            {module.description && (
+              <div className="p-3 ps-2 text-muted fs-6">
+                {module.description}
+              </div>
+            )}
+            {module.lessons && module.lessons.length > 0 && (
               <ListGroup className="wd-lessons rounded-0">
                 {module.lessons.map((lesson: any) => (
                   <ListGroupItem key={lesson._id} className="wd-lesson p-3 ps-1">
