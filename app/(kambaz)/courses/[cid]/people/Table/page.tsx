@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import * as client from "../../client";
+import * as client from "../../../client";
 
 export default function PeopleTable() {
   const { cid } = useParams();
