@@ -4,21 +4,33 @@ import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import * as client from "../../../client";
+import PeopleDetails from "../details";
 
 export default function PeopleTable() {
   const { cid } = useParams();
   const [users, setUsers] = useState<any[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+  const fetchUsers = async () => {
+    const data = await client.findUsersForCourse(cid as string);
+    setUsers(data);
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const data = await client.findUsersForCourse(cid as string);
-      setUsers(data);
-    };
     fetchUsers();
   }, [cid]);
 
   return (
     <div id="wd-people-table">
+      {selectedUserId && (
+        <PeopleDetails
+          uid={selectedUserId}
+          onClose={() => {
+            setSelectedUserId(null);
+            fetchUsers();
+          }}
+        />
+      )}
       <Table striped>
         <thead>
           <tr>
@@ -33,7 +45,9 @@ export default function PeopleTable() {
         <tbody>
           {users.map((user: any) => (
             <tr key={user._id}>
-              <td className="wd-full-name text-nowrap">
+              <td className="wd-full-name text-nowrap"
+                style={{ cursor: "pointer" }}
+                onClick={() => setSelectedUserId(user._id)}>
                 <FaUserCircle className="me-2 fs-1 text-secondary" />
                 <span className="wd-first-name">{user.firstName}</span>{" "}
                 <span className="wd-last-name">{user.lastName}</span>
