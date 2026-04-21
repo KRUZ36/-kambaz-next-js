@@ -84,3 +84,58 @@ export const unenrollFromCourse = async (courseId: string) => {
   const { data } = await axiosWithCredentials.delete(`${USERS_API}/current/courses/${courseId}`);
   return data;
 };
+
+//Quizzes
+export const findQuizzesForCourse = async (courseId: string) => {
+  const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/quizzes`);
+  return data;
+};
+
+export const createQuiz = async (courseId: string, quiz: any) => {
+  const { data } = await axiosWithCredentials.post(`${COURSES_API}/${courseId}/quizzes`, quiz);
+  return data;
+};
+
+export const updateQuiz = async (quiz: any) => {
+  const { data } = await axiosWithCredentials.put(`${HTTP_SERVER}/api/quizzes/${quiz._id}`, quiz);
+  return data;
+};
+
+export const deleteQuiz = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.delete(`${HTTP_SERVER}/api/quizzes/${quizId}`);
+  return data;
+};
+
+export const publishQuiz = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.put(`${HTTP_SERVER}/api/quizzes/${quizId}/publish`);
+  return data;
+};
+
+export const unpublishQuiz = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.put(`${HTTP_SERVER}/api/quizzes/${quizId}/unpublish`);
+  return data;
+};
+
+export const findQuizById = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.get(`${HTTP_SERVER}/api/quizzes/${quizId}`);
+  return data;
+};
+
+// Attempts
+export const saveAttempt = async (quizId: string, attempt: any) => {
+  const { data } = await axiosWithCredentials.post(
+    `${HTTP_SERVER}/api/quizzes/${quizId}/attempts`, attempt);
+  return data;
+};
+
+export const getLastAttempt = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.get(
+    `${HTTP_SERVER}/api/quizzes/${quizId}/attempts/last`);
+  return data;
+};
+
+export const getAttemptCount = async (quizId: string) => {
+  const { data } = await axiosWithCredentials.get(
+    `${HTTP_SERVER}/api/quizzes/${quizId}/attempts/count`);
+  return data;
+};
