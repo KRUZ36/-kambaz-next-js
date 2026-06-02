@@ -1,35 +1,72 @@
+"use client";
+import { AiOutlineDashboard } from "react-icons/ai";
+import { IoCalendarOutline } from "react-icons/io5";
+import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
+import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { MdOutlineScience } from "react-icons/md";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 export default function KambazNavigation() {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/account",   icon: <FaRegCircleUser className="fs-1" />,    label: "Account",   id: "wd-account-link"   },
+    { href: "/dashboard", icon: <AiOutlineDashboard className="fs-1" />, label: "Dashboard", id: "wd-dashboard-link" },
+    { href: "/dashboard", icon: <LiaBookSolid className="fs-1" />,       label: "Courses",   id: "wd-courses-link"   },
+    { href: "/calendar",  icon: <IoCalendarOutline className="fs-1" />,  label: "Calendar",  id: "wd-calendar-link"  },
+    { href: "/inbox",     icon: <FaInbox className="fs-1" />,            label: "Inbox",     id: "wd-inbox-link"     },
+    { href: "/settings",  icon: <LiaCogSolid className="fs-1" />,       label: "Settings",  id: "wd-settings-link"  },
+    { href: "/labs",      icon: <MdOutlineScience className="fs-1" />,   label: "Labs",      id: "wd-sLabs-link"     },
+  ];
+
   return (
-    <div id="wd-kambaz-navigation">
-      <a href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank">
-        Northeastern
-      </a>
+    <ListGroup
+      className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
+      style={{ width: 120 }}
+      id="wd-kambaz-navigation"
+    >
+      <ListGroupItem
+        className="bg-black border-0 text-center"
+        as="a"
+        target="_blank"
+        href="https://www.northeastern.edu/"
+        id="wd-neu-link"
+      >
+        <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
+      </ListGroupItem>
       <br />
-      <Link href="/account" id="wd-account-link">
-        Account
-      </Link>
-      <br />
-      <Link href="/dashboard" id="wd-dashboard-link">
-        Dashboard
-      </Link>
-      <br />
-      <Link href="/dashboard" id="wd-course-link">
-        Courses
-      </Link>
-      <br />
-      <Link href="/calendar" id="wd-calendar-link">
-        Calendar
-      </Link>
-      <br />
-      <Link href="/inbox" id="wd-inbox-link">
-        Inbox
-      </Link>
-      <br />
-      <Link href="/labs" id="wd-labs-link">
-        Labs
-      </Link>
-      <br />
-    </div>
+
+      {links.map((link) => {
+        const isActive =
+          link.id === "wd-dashboard-link"
+            ? pathname === "/dashboard"
+            : link.id === "wd-courses-link"
+            ? pathname.startsWith("/courses")
+            : link.id === "wd-account-link"
+            ? pathname.startsWith("/account")
+            : pathname.startsWith(link.href);
+
+        return (
+          <ListGroupItem
+            key={link.id}
+            className={`border-0 text-center ${isActive ? "bg-white" : "bg-black"}`}
+          >
+            <Link
+              href={link.href}
+              id={link.id}
+              className={`text-decoration-none ${isActive ? "text-danger" : "text-white"}`}
+            >
+              <div className={isActive ? "text-danger" : "text-white"}>
+                {link.icon}
+              </div>
+              <br />
+              {link.label}
+            </Link>
+          </ListGroupItem>
+        );
+      })}
+    </ListGroup>
   );
 }
